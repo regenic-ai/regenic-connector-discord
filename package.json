@@ -1,0 +1,42 @@
+{
+  "name": "@regenic/discord-connector",
+  "version": "0.1.0",
+  "description": "Local-first Discord bot connector for Regenic.",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": { "node": ">=22.12.0" },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "require": "./dist/index.js", "default": "./dist/index.js" } },
+  "bin": { "regenic-discord": "./dist/cli.js" },
+  "files": ["dist", "README.md", "README.zh-CN.md", "LICENSE", "THIRD_PARTY_NOTICES.md"],
+  "regenic": {
+    "plugin": true,
+    "catalogOrder": 90,
+    "id": "@regenic/discord-connector",
+    "displayName": "Discord",
+    "engines": { "regenic": "1.0" },
+    "contributes": { "drivers": ["discordDriver"] }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test test/*.test.cjs"
+  },
+  "dependencies": {
+    "@napi-rs/keyring": "2.1.2",
+    "@regenic/connector-contract": "0.2.0",
+    "@regenic/plugin-host": "0.1.0",
+    "discord-api-types": "0.38.49"
+  },
+  "devDependencies": {
+    "@regenic/connector-test-utils": "0.1.0",
+    "@types/node": "22.10.2",
+    "typescript": "5.7.2"
+  },
+  "overrides": {
+    "@regenic/connector-test-utils@0.1.0": {
+      "@regenic/connector-contract": "$@regenic/connector-contract"
+    }
+  }
+}
